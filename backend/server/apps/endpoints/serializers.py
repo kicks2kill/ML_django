@@ -3,12 +3,15 @@ from apps.endpoints.models import Endpoint
 from apps.endpoints.models import MLAlgorithm
 from apps.endpoints.models import MLAlgorithmStatus
 from apps.endpoints.models import MLRequest
+from apps.endpoints.models import ABTest
+
 
 class EndpointSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endpoint
         read_only_fields = ("id", "name", "owner", "created_at")
         fields = read_only_fields
+
 
 class MLAlgorithmSerializer(serializers.ModelSerializer):
 
@@ -23,7 +26,7 @@ class MLAlgorithmSerializer(serializers.ModelSerializer):
                             "version", "owner", "created_at",
                             "parent_endpoint", "current_status")
         fields = read_only_fields
-
+        
 class MLAlgorithmStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = MLAlgorithmStatus
@@ -51,3 +54,23 @@ class MLRequestSerializer(serializers.ModelSerializer):
             "created_at",
             "parent_mlalgorithm",
         )
+
+class ABTestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ABTest
+        read_only_fields = (
+            "id",
+            "ended_at",
+            "created_at",
+            "summary",
+        )
+        fields = (
+            "id",
+            "title",
+            "created_by",
+            "created_at",
+            "ended_at",
+            "summary",
+            "parent_mlalgorithm_1",
+            "parent_mlalgorithm_2",
+            )
